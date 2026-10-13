@@ -30,7 +30,7 @@ dependencies {
         implementation(project(":${it.name}"))
     }
 
-    implementation(libs.commandApiShade)
+    implementation(files("../libs/CommandAPI-12.1.0-Paper.jar"))
 }
 
 paperPluginYaml {
