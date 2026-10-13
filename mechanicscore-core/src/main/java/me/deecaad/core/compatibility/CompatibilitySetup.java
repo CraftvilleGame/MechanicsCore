@@ -17,7 +17,15 @@ public class CompatibilitySetup {
      * @return the server version as string
      */
     public String getVersionAsString() {
-        return MinecraftVersions.getCurrent().toProtocolString();
+        MinecraftVersions.Version current = MinecraftVersions.getCurrent();
+
+        // FoliaScheduler only knows the drops it was built against, so newer
+        // year-based drops (26.2, 26.3, ...) parse with protocol -1. From 26.1
+        // onward the protocol is always R1, so map unknown drops to that.
+        if (current.getMajor() >= 26 && current.getProtocol() < 0)
+            return "v" + current.getMajor() + "_" + current.getMinor() + "_R1";
+
+        return current.toProtocolString();
     }
 
     /**
